@@ -616,15 +616,11 @@ NB_MODULE(game, m)
         std::vector<double> out = py::without_gil([&] {
             return with_players(t.n, [&](auto N) {
                 std::vector<double> flat(N * N);
-                if constexpr (N < 2)   // all zero; core's shapley_interactions<0|1> warns (erratum/CORE.md #1)
-                    return flat;
-                else {
                 const auto r = game::shapley_interactions<N>(game::table_game<double>(t.data));
                 for (std::size_t i = 0; i < N; ++i)
                     for (std::size_t j = 0; j < N; ++j)
                         flat[i * N + j] = r[i][j];
                 return flat;
-                }
             });
         });
         return py::to_numpy(std::move(out), t.n, t.n);

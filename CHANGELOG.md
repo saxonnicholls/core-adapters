@@ -8,6 +8,8 @@ C++ headers, the CMake project and the Python package share one version (`script
 ### Changed
 
 - `third_party/core` re-pinned to snicholls-core `v0.5.1` (the public repository), `snicholls_core_require(0.5.1)`.
+- `snicholls_core.game.interactions` calls core's `shapley_interactions<N>` for every N again: the N < 2 workaround is
+  gone with the fix in core v0.5.1 (erratum/CORE.md #1, #2 resolved).
 
 ### Added
 

@@ -44,7 +44,7 @@ Install from a checkout (submodules included): `pip install .`
 
 ```cmake
 add_subdirectory(third_party/core EXCLUDE_FROM_ALL)            # your core pin: the top level's copy wins
-snicholls_core_require(0.4.0)
+snicholls_core_require(0.5.1)
 add_subdirectory(third_party/core_adapters EXCLUDE_FROM_ALL)   # snicholls::core_json, snicholls::core_nanobind,
                                                                # and nanobind_add_module() from the pinned nanobind
 nanobind_add_module(my_module STABLE_ABI NB_STATIC NOMINSIZE src/my_module.cpp)
@@ -86,7 +86,7 @@ Other commands: `make test`, `make docs`, `make demos` (`scripts/run_demos.sh`, 
 
 | Dependency | Path | Pinned to |
 |---|---|---|
-| snicholls-core | `third_party/core` | `v0.4.0` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
+| snicholls-core | `third_party/core` | `v0.5.1` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
 | nanobind | `third_party/nanobind` | `v3.1.0` |
 | nlohmann/json | `third_party/nlohmann_json` | `v3.12.0` |
 

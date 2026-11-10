@@ -5,9 +5,13 @@ C++ headers, the CMake project and the Python package share one version (`script
 
 ## [Unreleased] - 0.1.0
 
+### Changed
+
+- `third_party/core` re-pinned to snicholls-core `v0.5.1` (the public repository), `snicholls_core_require(0.5.1)`.
+
 ### Added
 
-- Pins: snicholls-core `v0.4.0` (`third_party/core`, with `snicholls_core_require(0.4.0)` and
+- Pins: snicholls-core (`third_party/core`, with `snicholls_core_require` and
   `snicholls_core_assert_single_version()`), nanobind `v3.1.0`, nlohmann/json `v3.12.0`; GoogleTest and Google Benchmark
   are core's pinned copies.
 - `snicholls::core_nanobind` (`<snicholls/core_adapters/nanobind/...>`): `gil.hpp` (`release_gil`, `without_gil`,

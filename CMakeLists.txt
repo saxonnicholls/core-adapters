@@ -62,7 +62,7 @@ if(NOT EXISTS "${CORE_ADAPTERS_CORE_ROOT}/CMakeLists.txt")
                         "Run: git submodule update --init --recursive")
 endif()
 add_subdirectory(${CORE_ADAPTERS_CORE_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/third_party/core EXCLUDE_FROM_ALL)
-snicholls_core_require(0.4.0)
+snicholls_core_require(0.5.1)
 
 function(core_adapters_compile_options target)
     if(MSVC)

@@ -20,8 +20,8 @@ int main()
     const std::string core(snicholls::core_adapters::core_version_string());
     std::printf("core-adapters %s, built against snicholls-core %s\n", adapters.c_str(), core.c_str());
     //! [version]
-    if (adapters != SNICHOLLS_CORE_ADAPTERS_VERSION_STRING || snicholls::core::version() < SNICHOLLS_CORE_VERSION_CHECK(0, 4, 0)) {
-        std::printf("version_demo: FAILED - expected core 0.4.0 or newer\n");
+    if (adapters != SNICHOLLS_CORE_ADAPTERS_VERSION_STRING || snicholls::core::version() < SNICHOLLS_CORE_VERSION_CHECK(0, 5, 1)) {
+        std::printf("version_demo: FAILED - expected core 0.5.1 or newer\n");
         return 1;
     }
     std::printf("version_demo: ok\n");

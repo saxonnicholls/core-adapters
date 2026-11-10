@@ -1,0 +1,37 @@
+[build-system]
+requires = ["scikit-build-core>=0.10"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "snicholls_core"
+version = "0.1.0"
+description = "Python bindings of snicholls-core: cooperative-game attribution (Shapley, Owen, samplers) and the wyrand generator"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+authors = [{ name = "Saxon Herschel Nicholls" }]
+dependencies = ["numpy>=1.26"]
+classifiers = [
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+build-dir = "build-wheel/{wheel_tag}"
+# abi3: one wheel for CPython 3.12 and every later version
+wheel.py-api = "cp312"
+wheel.packages = ["python/snicholls_core"]
+cmake.build-type = "Release"
+# Only the Python modules and their stubs: no tests, demos or JSON adapters in a wheel build
+cmake.define = { CORE_ADAPTERS_BUILD_TESTS = "OFF", CORE_ADAPTERS_BUILD_PYTHON = "ON", CORE_ADAPTERS_WITH_NLOHMANN = "OFF" }
+sdist.exclude = ["build*", "third_party/core/third_party", "third_party/nanobind/tests", "third_party/nanobind/docs",
+                 "third_party/nlohmann_json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]

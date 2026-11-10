@@ -1,0 +1,13 @@
+# Build trees (gate: build-family; demos: build-demos; benchmarks: build-bench; wheels: build-wheel)
+/build/
+/build-*/
+/dist/
+*.egg-info/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+/venv*/
+.DS_Store
+.vscode/
+.idea/

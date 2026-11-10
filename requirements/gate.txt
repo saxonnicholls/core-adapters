@@ -1,0 +1,5 @@
+# The Python packages the gate installs, pinned. scripts/fetch_wheels.sh downloads them (and their dependencies)
+# once into the wheelhouse; scripts/gate.sh then installs from it with --no-index, so the gate needs no network.
+scikit-build-core==1.1.2
+numpy==2.5.4
+pytest==9.2.0

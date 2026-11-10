@@ -1,0 +1,12 @@
+[submodule "third_party/core"]
+	path = third_party/core
+	url = https://github.com/saxonnicholls/core.git
+	shallow = true
+[submodule "third_party/nanobind"]
+	path = third_party/nanobind
+	url = https://github.com/wjakob/nanobind.git
+	shallow = true
+[submodule "third_party/nlohmann_json"]
+	path = third_party/nlohmann_json
+	url = https://github.com/nlohmann/json.git
+	shallow = true

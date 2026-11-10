@@ -1,0 +1,59 @@
+name: CI
+
+# The same gate as a local run (scripts/gate.sh on macOS, scripts/test_ubuntu.sh on Linux), on Linux and macOS.
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86-64 GCC
+            os: ubuntu-24.04
+            cxx: g++
+          - name: Linux x86-64 Clang
+            os: ubuntu-24.04
+            cxx: clang++
+          - name: macOS ARM64 Apple Clang
+            os: macos-latest
+            cxx: c++
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: |
+            3.13
+            3.12
+
+      - name: Build tools
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then sudo apt-get update && sudo apt-get install -y --no-install-recommends ninja-build doxygen; fi
+          if [ "$RUNNER_OS" = macOS ]; then brew install ninja doxygen; fi
+
+      - name: Static checks
+        env:
+          RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
+        run: |
+          python3 scripts/check_version.py
+          python3 scripts/check_mirror.py
+
+      - name: Wheelhouse (the one networked step)
+        run: scripts/fetch_wheels.sh python3.12 python3.13
+
+      - name: Gate
+        run: scripts/gate.sh --cxx ${{ matrix.cxx }}

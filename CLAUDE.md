@@ -64,9 +64,12 @@ in that consumer. Dependencies never leak into core: core's headers are included
 - **Python names are core's names** (`shapley`, `owen`, `uniform_index`); only a keyword clash changes one
   (`with` -> `with_player`; stubgen hides a trailing underscore). Classes are CamelCase (`Wyrand`, `Attribution`).
   Every docstring ends with `C++: <the function it calls>`, and `docs/python_api.md` maps every name both ways.
-- **The GIL:** release it for every C++ computation on plain data (`release_gil()` or `without_gil`), never while
-  touching a Python object. A Python callable needs the GIL per call: prefer tables (NumPy arrays) for anything
-  evaluated many times - the exact game methods tabulate a callable once, then compute GIL-free.
+- **The GIL (hard rule): Python is always non-blocking.** GIL builds of CPython only; free-threaded builds are not
+  supported. Release the GIL for every C++ computation on plain data (`release_gil()` or `without_gil`), never while
+  touching a Python object. A call that would wait on something C++ owns (a lock, an event loop, I/O) returns a future
+  instead of waiting. Python code never runs on a C++ thread, and a C++ thread never waits for the GIL. A Python
+  callable needs the GIL per call: prefer tables (NumPy arrays) for anything evaluated many times - the exact game
+  methods tabulate a callable once, then compute GIL-free.
 - **Errors:** every module calls `snicholls::python::register_exception_translators()`; preconditions core only asserts
   are checked with `snicholls::python::require` (`PreconditionError`, a `ValueError`). No C++ exception escapes as
   anything but the documented class (`errors.hpp` table).

@@ -13,45 +13,48 @@ import gil_module as m
 import pytest
 
 
-def progress_while(call, seconds=0.3):
-    """How many times a Python thread ran its loop while `call(seconds)` ran on this thread."""
-    count = 0
+SECONDS = 0.3
+
+
+def longest_pause_while(call, seconds=SECONDS):
+    """The longest a Python thread went without running its loop while `call(seconds)` ran on this thread."""
+    ticks = []
     stop = threading.Event()
 
     def counter():
-        nonlocal count
         while not stop.is_set():
-            count += 1
+            ticks.append(time.perf_counter())
             time.sleep(0)
 
     t = threading.Thread(target=counter)
     t.start()
     time.sleep(0.02)
-    before = count
+    start = time.perf_counter()
     call(seconds)
-    during = count - before
+    end = time.perf_counter()
     stop.set()
     t.join()
-    return during
+    edges = [start, *(s for s in ticks if start < s < end), end]
+    return max(b - a for a, b in zip(edges, edges[1:]))
 
 
-# Absolute tick counts depend on the machine and its load (a container running four test suites at once ticks far
-# less), so each test compares with the GIL held: then the counter only ticks at the call's boundaries, when the
-# waiting thread takes the GIL the moment the call returns.
+# A count of ticks cannot tell the GIL held from released on a loaded machine: when the call returns, the waiting
+# thread takes the GIL before this one reads the count, and a busy VM can leave it there for tens of milliseconds
+# (79,000 ticks once, on a 3-CPU macOS runner). The longest pause can: with the GIL held the counter stops for the
+# whole call, and with it released it never stops for long.
 
-@pytest.fixture(scope="module")
-def held_ticks():
-    return progress_while(m.spin_held)
-
-
-def test_release_gil_lets_python_threads_run(held_ticks):
-    released = progress_while(m.spin_released)
-    assert released > 10 and released > 5 * held_ticks, (released, held_ticks)
+def test_holding_the_gil_stops_python_threads():
+    assert longest_pause_while(m.spin_held) >= 0.9 * SECONDS
 
 
-def test_without_gil_lets_python_threads_run(held_ticks):
-    released = progress_while(m.spin_without_gil)
-    assert released > 10 and released > 5 * held_ticks, (released, held_ticks)
+def test_release_gil_lets_python_threads_run():
+    pause = longest_pause_while(m.spin_released)
+    assert pause < 0.5 * SECONDS, pause
+
+
+def test_without_gil_lets_python_threads_run():
+    pause = longest_pause_while(m.spin_without_gil)
+    assert pause < 0.5 * SECONDS, pause
 
 
 def test_with_gil_inside_without_gil_can_call_python():

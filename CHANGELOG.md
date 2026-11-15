@@ -3,11 +3,14 @@
 All notable changes to core-adapters. The format follows Keep a Changelog; versions follow semantic versioning, and the
 C++ headers, the CMake project and the Python package share one version (`scripts/check_version.py`).
 
-## [Unreleased] - 0.1.0
+## [0.1.0] - 2026-11-16
 
 ### Changed
 
-- `third_party/core` re-pinned to snicholls-core `v0.5.1` (the public repository), `snicholls_core_require(0.5.1)`.
+- `third_party/core` pinned to snicholls-core `v0.8.0` (the public repository, via `v0.5.1` and `v0.7.0`);
+  `snicholls_core_require(0.5.1)` stays, since nothing newer is used.
+- The GIL rule is hard (CLAUDE.md): GIL builds of CPython only; a call that would wait on C++ returns a future; Python
+  never runs on a C++ thread and a C++ thread never waits for the GIL.
 - `snicholls_core.game.interactions` calls core's `shapley_interactions<N>` for every N again: the N < 2 workaround is
   gone with the fix in core v0.5.1 (erratum/CORE.md #1, #2 resolved).
 

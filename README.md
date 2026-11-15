@@ -86,7 +86,7 @@ Other commands: `make test`, `make docs`, `make demos` (`scripts/run_demos.sh`, 
 
 | Dependency | Path | Pinned to |
 |---|---|---|
-| snicholls-core | `third_party/core` | `v0.7.0` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
+| snicholls-core | `third_party/core` | `v0.8.0` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
 | nanobind | `third_party/nanobind` | `v3.1.0` |
 | nlohmann/json | `third_party/nlohmann_json` | `v3.12.0` |
 

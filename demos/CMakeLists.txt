@@ -50,7 +50,7 @@ if(CORE_ADAPTERS_BUILD_PYTHON)
     core_adapters_add_module_demo(optional_demo nanobind/optional_demo.cpp)
 
     # The package's demos
-    foreach(_m IN ITEMS errors game stats)
+    foreach(_m IN ITEMS console errors game stats)
         add_custom_target(core_adapters_python_${_m}_demo DEPENDS snicholls_core_stats snicholls_core_game)
         add_test(NAME demo.python.${_m} COMMAND Python::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/python/${_m}_demo.py)
         set_tests_properties(demo.python.${_m} PROPERTIES LABELS demo ENVIRONMENT "${_demo_env}")

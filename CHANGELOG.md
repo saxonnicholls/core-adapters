@@ -3,6 +3,19 @@
 All notable changes to core-adapters. The format follows Keep a Changelog; versions follow semantic versioning, and the
 C++ headers, the CMake project and the Python package share one version (`scripts/check_version.py`).
 
+## [Unreleased]
+
+### Added
+
+- `snicholls_core.console` and `python -m snicholls_core`: an interactive console over the package, with
+  `inventory()`, `describe(x)` (by Python or C++ name), `fields(obj)`, `cpp(name)` and `tour()`. It reads what the
+  modules bind, so anything bound later appears in it unchanged.
+
+### Fixed
+
+- Every docstring of the package ends with its C++ counterpart (`Memoized`, `SetGame`, `set_game`, the
+  `Attribution` properties and the `errors` classes did not), and a test keeps it so.
+
 ## [0.1.0] - 2026-11-16
 
 ### Changed

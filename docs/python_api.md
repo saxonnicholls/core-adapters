@@ -44,3 +44,16 @@ docstring (and so each `.pyi` entry) ends with `C++: ...`.
 | `ResultError` | `snicholls::bad_result_access<E>`; any non-exception error raised by `snicholls::python::raise_error` |
 | `TracedError` | `snicholls::python::traced_exception`, from a `snicholls::traced<E>` error |
 | `PreconditionError` (a `ValueError`) | `snicholls::python::precondition_error` (`snicholls::python::require`) |
+
+## snicholls_core.console (python/snicholls_core/console.py)
+
+Python only: it reads the modules above and their docstrings, and calls no C++ of its own.
+
+| Python | C++ |
+|---|---|
+| `python -m snicholls_core` (`main(argv)`): an interactive console; `--list [MODULE]`, `--describe NAME`, `--tour` | none |
+| `inventory(module=None)` -> list of `Entry` (`module`, `name`, `kind`, `signatures`, `summary`, `cpp`, `qualified`) | none; `cpp` is the `C++:` line of each docstring |
+| `describe(x)`: a Python name, a C++ name, a bound object or an instance | none |
+| `fields(obj)`: the properties of a bound object and their values (`__fields__` when the class has it) | none |
+| `cpp(name)`: the entries whose `C++:` line names a C++ entity | none |
+| `tour(out=None)`, `namespace()` | none |

@@ -40,6 +40,22 @@ every name both ways. Errors share one hierarchy, `snicholls_core.errors` (`Core
 
 Install from a checkout (submodules included): `pip install .`
 
+### Interrogating it from a prompt
+
+`python -m snicholls_core` opens a Python console with `game`, `stats`, `errors` and `np` loaded, and four helpers
+that read whatever the package binds (so anything bound later appears with no change to the console):
+
+```python
+>>> inventory()                          # every class, function and exception, with the C++ each one calls
+>>> describe("snicholls::game::owen")    # signatures, documentation and C++ counterpart: by Python or C++ name
+>>> a = game.shapley(np.array([0.0, 1, 2, 4]))
+>>> fields(a)                            # {'baseline': 0.0, ..., 'total': 4.0, 'values': array([1.5, 2.5])}
+>>> cpp("snicholls::stats::wyrand")      # the Python names that call a C++ entity
+>>> tour()                               # a short guided session
+```
+
+From the shell: `python -m snicholls_core --list [MODULE]`, `--describe NAME`, `--tour`.
+
 ## Consuming the C++ targets
 
 ```cmake

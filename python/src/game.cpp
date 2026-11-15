@@ -538,23 +538,25 @@ NB_MODULE(game, m)
         "C++: snicholls::game::tabulate(n, v).");
 
     nb::class_<python_memoized>(m, "Memoized", nb::type_slots(function_slots<python_memoized>),
-                                "A game that evaluates each coalition once (C++ snicholls::game::memoized). Pass it "
-                                "to owen and the samplers in place of the callable: cached values never reach Python.")
+                                "A game that evaluates each coalition once. Pass it to owen and the samplers in place "
+                                "of the callable: cached values never reach Python.\n\n"
+                                "C++: snicholls::game::memoized<V>.")
         .def("__call__", [](const python_memoized& self, coalition s) { return self.memo(s); }, "s"_a,
-             "v(s), from the cache after the first call.")
+             "v(s), from the cache after the first call. C++: memoized::operator().")
         .def_prop_ro("evaluations", [](const python_memoized& self) { return self.memo.evaluations(); },
                      "Distinct coalitions evaluated so far. C++: memoized::evaluations().");
     m.def(
         "memoized", [](nb::callable v) { return python_memoized(std::move(v)); }, "v"_a,
         "Wraps a game returning a number so each coalition is evaluated once. C++: snicholls::game::memoized.");
     nb::class_<set_game>(m, "SetGame", nb::type_slots(function_slots<set_game>),
-                         "A game written for frozensets of players, as the bitmask form the methods call.")
+                         "A game written for frozensets of players, as the bitmask form the methods call.\n\n"
+                         "C++: none - Python only (C++ games take snicholls::game::coalition).")
         .def("__call__", [](const set_game& self, coalition s) { return self(s); }, "s"_a,
-             "f(frozenset of the players in s).");
+             "f(frozenset of the players in s). C++: none - Python only.");
     m.def(
         "set_game", [](nb::callable f) { return set_game{std::move(f)}; }, "f"_a,
         "Adapts a game written for frozensets of player indices, f(frozenset) -> value, to the bitmask form the "
-        "methods call. Python only (C++ games take snicholls::game::coalition).");
+        "methods call.\n\nC++: none - Python only (C++ games take snicholls::game::coalition).");
 
     // ---- the attribution result ----
     nb::class_<attribution>(m, "Attribution",
@@ -562,21 +564,27 @@ NB_MODULE(game, m)
                             "snicholls::game::attribution (sampled_attribution for the samplers).\n\n"
                             "For a scalar game baseline and total are floats and values has shape (n,); for a game "
                             "of m metrics they have shapes (m,), (m,) and (n, m).")
-        .def_prop_ro("baseline", [](const attribution& a) { return metric_out(a, a.baseline); }, "v(none).")
-        .def_prop_ro("total", [](const attribution& a) { return metric_out(a, a.total); }, "v(all).")
+        .def_prop_ro("baseline", [](const attribution& a) { return metric_out(a, a.baseline); },
+                     "v(none). C++: attribution::baseline.")
+        .def_prop_ro("total", [](const attribution& a) { return metric_out(a, a.total); },
+                     "v(all). C++: attribution::total.")
         .def_prop_ro("values", [](const attribution& a) { return attribution_repr_values(a); }, nb::rv_policy::move,
-                     "The amount attributed to each player.")
+                     "The amount attributed to each player. C++: attribution::values.")
         .def_prop_ro("standard_errors", [](const attribution& a) -> nb::object {
             if (!a.sampled)
                 return nb::none();
             std::vector<double> v = a.standard_errors;
             return nb::cast(py::to_numpy(std::move(v)));
-        }, "One per player for a sampled attribution (NaN with fewer than two samples); None for an exact one.")
+        }, "One per player for a sampled attribution (NaN with fewer than two samples); None for an exact one. "
+           "C++: sampled_attribution::standard_errors.")
         .def_ro("samples", &attribution::samples,
-                "Samples averaged: orders (an antithetic pair counts once) or lifts per player; 0 when exact.")
+                "Samples averaged: orders (an antithetic pair counts once) or lifts per player; 0 when exact. "
+                "C++: sampled_attribution::samples.")
         .def_ro("evaluations", &attribution::evaluations,
-                "Calls the method made to the game, repeats included (2^n for the exact methods).")
-        .def_prop_ro("players", [](const attribution& a) { return a.players; }, "n.")
+                "Calls the method made to the game, repeats included (2^n for the exact methods). "
+                "C++: sampled_attribution::evaluations.")
+        .def_prop_ro("players", [](const attribution& a) { return a.players; },
+                     "n. C++: attribution::values.size().")
         .def("attributed", [](const attribution& a) { return metric_out(a, a.attributed()); },
              "The baseline plus every player's amount. C++: attribution::attributed().")
         .def("unattributed", [](const attribution& a) {

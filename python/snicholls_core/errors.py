@@ -33,13 +33,18 @@ __all__ = ["CoreError", "ResultError", "TracedError", "PreconditionError"]
 
 
 class CoreError(Exception):
-    """The base of every snicholls-core error raised from C++."""
+    """The base of every snicholls-core error raised from C++.
+
+    C++: snicholls::python::register_exception_translators (maps core's errors to the subclasses).
+    """
 
 
 class ResultError(CoreError):
-    """An error ``snicholls::result<V, E>`` reached Python (C++ ``snicholls::bad_result_access``).
+    """An error ``snicholls::result<V, E>`` reached Python.
 
     The message is ``snicholls::error_text`` of the error.
+
+    C++: snicholls::bad_result_access<E> (and any error raised by snicholls::python::raise_error).
     """
 
 
@@ -53,6 +58,8 @@ class TracedError(ResultError):
     - ``frames``: the context messages, innermost first.
     - ``fields``: key-value fields, secrets already masked by core.
     - ``stack``: the captured stack trace, or ``""``.
+
+    C++: snicholls::python::traced_exception, from a snicholls::traced<E> error.
     """
 
     error: str = ""
@@ -70,4 +77,7 @@ class TracedError(ResultError):
 
 
 class PreconditionError(CoreError, ValueError):
-    """An argument broke a documented precondition (C++ ``snicholls::python::precondition_error``)."""
+    """An argument broke a documented precondition.
+
+    C++: snicholls::python::precondition_error (raised by snicholls::python::require).
+    """

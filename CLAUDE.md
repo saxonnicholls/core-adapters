@@ -143,7 +143,7 @@ gate.
 
 | Dependency | Path | Pinned to | Used by |
 |---|---|---|---|
-| snicholls-core | `third_party/core` | `v0.8.0` | everything |
+| snicholls-core | `third_party/core` | `v0.9.0` | everything |
 | nanobind | `third_party/nanobind` | `v3.1.0` | `snicholls::core_nanobind` consumers, the package |
 | nlohmann/json | `third_party/nlohmann_json` | `v3.12.0` | `snicholls::core_json`, the C++ tests |
 | GoogleTest, Google Benchmark | core's `third_party/` | `v1.18.0`, `v1.9.5` | tests, benchmarks |

@@ -15,6 +15,9 @@ C++ headers, the CMake project and the Python package share one version (`script
 - `snicholls_core.console` and `python -m snicholls_core`: an interactive console over the package, with
   `inventory()`, `describe(x)` (by Python or C++ name), `fields(obj)`, `cpp(name)` and `tour()`. It reads what the
   modules bind, so anything bound later appears in it unchanged.
+- The Doxygen documentation is published to GitHub Pages (<https://saxonnicholls.github.io/core-adapters/>) by CI:
+  `main` to `/main/`, each release tag to `/vX.Y.Z/`, and the root to the newest release. The README carries the CI
+  and documentation badges, as core's does.
 
 ### Fixed
 

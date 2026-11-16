@@ -1,5 +1,8 @@
 # core-adapters
 
+[![CI](https://github.com/saxonnicholls/core-adapters/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/saxonnicholls/core-adapters/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-doxygen-blue)](https://saxonnicholls.github.io/core-adapters/)
+
 Third-party adapters for [snicholls-core](https://github.com/saxonnicholls/core). Core is a header-only C++20 library
 that depends on the standard library alone, and stays that way; everything that joins it to a third-party library
 lives here, pinning core like every other member of the family.

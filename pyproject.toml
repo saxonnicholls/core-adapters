@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "snicholls_core"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python bindings of snicholls-core: cooperative-game attribution (Shapley, Owen, samplers) and the wyrand generator"
 readme = "README.md"
 requires-python = ">=3.12"

@@ -19,7 +19,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(snicholls_core_adapters
-    VERSION 0.1.0
+    VERSION 0.1.1
     DESCRIPTION "core-adapters - third-party adapters (nanobind, nlohmann/json) for snicholls-core"
     LANGUAGES CXX)
 

@@ -20,7 +20,7 @@
 #  and for every module of the snicholls_core package (python/src/<m>.cpp
 #  or python/snicholls_core/<m>.py): tests/python/<m>_test.py,
 #  demos/python/<m>_demo.py and scripts/demos/python_<m>_demo.sh. A test or demo with
-#  no header or module is an error too. Exit status 1 on any finding.
+#  no header or module is an error too. The umbrella, core_adapters.hpp, is exempt. Exit status 1 on any finding.
 #
 
 import os
@@ -28,6 +28,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INCLUDE = os.path.join(ROOT, "include", "snicholls", "core_adapters")
+UMBRELLA = "core_adapters"   # core_adapters.hpp, the source of the single include snicholls_core_adapters.hpp
 
 
 def cmake_text(tree):
@@ -53,6 +54,8 @@ def main():
                 continue
             rel = os.path.relpath(os.path.join(dirpath, f), INCLUDE)[:-4]
             if rel.split(os.sep)[0] == "detail" or "/detail/" in rel:
+                continue
+            if rel == UMBRELLA:   # the umbrella has no test or demo of its own: it is compiled as the single include
                 continue
             name = os.path.basename(rel)
             test, demo = f"{rel}_test.cpp", f"{rel}_demo.cpp"

@@ -5,6 +5,19 @@ C++ headers, the CMake project and the Python package share one version (`script
 
 ## [Unreleased]
 
+### Added
+
+- `snicholls_core_adapters.hpp`, the single include, generated from the new umbrella
+  `include/snicholls/core_adapters/core_adapters.hpp` by snicholls-tooling's `single_include.py`, with the core
+  headers it uses expanded, so it needs nothing but the standard library. Every adapter links a third party (nanobind
+  and Python, nlohmann/json), so they are opted out and the file holds the version header. It is never committed:
+  every build generates it and compiles it alone (`core_adapters_single_include`), `make check`, the CTest
+  `check.single_include` and CI fail while a header is missing from the umbrella, every release tag attaches it to
+  the GitHub release, and `make single-include` writes it locally.
+- tooling's interface check (`check_interfaces.py`: every pure virtual interface has its concept twin) in
+  `make check`, CI and the CTest `check.interfaces`.
+- `third_party/tooling`: snicholls-tooling pinned at `v0.2.1`, build-time only.
+
 ## [0.1.3] - 2026-11-24
 
 ### Changed

@@ -193,6 +193,17 @@ if(CORE_ADAPTERS_BUILD_TESTS)
     endif()
     core_adapters_compile_options(core_adapters_header_check)
 
+    # tooling (third_party/tooling, a test-only submodule pinned to a tag): snicholls_core_adapters.hpp, the single
+    # include, is generated in the build tree and compiled on its own, and the CTests check.single_include (the umbrella
+    # is complete) and check.interfaces (every interface has its concept twin), from tooling.conf
+    if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/tooling/cmake/SnichollsTooling.cmake)
+        message(FATAL_ERROR "third_party/tooling is empty - run: git submodule update --init --recursive")
+    endif()
+    include(${CMAKE_CURRENT_SOURCE_DIR}/third_party/tooling/cmake/SnichollsTooling.cmake)
+    snicholls_single_include_check(core_adapters_single_include)
+    core_adapters_compile_options(core_adapters_single_include)
+    snicholls_tooling_add_checks(SINGLE_INCLUDE INTERFACES)
+
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
     add_test(NAME check.version COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_version.py)
     add_test(NAME check.mirror COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_mirror.py)

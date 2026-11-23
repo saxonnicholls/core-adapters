@@ -64,6 +64,12 @@ in that consumer. Dependencies never leak into core: core's headers are included
 - `include/snicholls/core_adapters/` - `version.hpp`; `nanobind/` (`gil`, `errors`, `ndarray`, `bytes`, `optional`);
   `nlohmann/` (`json`, `time_json`, `uuid_json`, `decimal_json`, `secret_json`). Header guards
   `snicholls_core_adapters_<path>_hpp`; macros `SNICHOLLS_CORE_ADAPTERS_*`; CMake options `CORE_ADAPTERS_*`.
+- `include/snicholls/core_adapters/core_adapters.hpp` - the umbrella of the headers that need no third party, the
+  source of the single include `snicholls_core_adapters.hpp` (tooling's `single_include.py`). It is **never
+  committed** (`single_include/` holds only its README): every build generates and compiles it alone, the CTest
+  `check.single_include` and CI fail while a header is missing from the umbrella, every release tag attaches it to the
+  GitHub release, and `make single-include` writes it locally. A new header joins the umbrella, or
+  `single_include_opt_in` in `tooling.conf` with its reason.
 - `python/` - `snicholls_core/` (pure Python: `__init__.py`, `errors.py`, `py.typed`), `src/<module>.cpp` (one
   nanobind module each: `stats`, `game`), `CMakeLists.txt` (modules `snicholls_core_<module>`, stubs).
 - `tests/`, `demos/` mirror the headers and the package (below); `benchmarks/`; `scripts/`; `docs/`; `erratum/`;
@@ -160,6 +166,7 @@ gate.
 | nanobind | `third_party/nanobind` | `v3.1.0` | `snicholls::core_nanobind` consumers, the package |
 | nlohmann/json | `third_party/nlohmann_json` | `v3.12.0` | `snicholls::core_json`, the C++ tests |
 | GoogleTest, Google Benchmark | core's `third_party/` | `v1.18.0`, `v1.9.5` | tests, benchmarks |
+| snicholls-tooling | `third_party/tooling` | `v0.2.1` | the single include and the interface check (build-time only) |
 
 Rules (core's): pin a release tag, https, `shallow = true`, never edit inside a submodule, `add_subdirectory(...
 EXCLUDE_FROM_ALL)` with the dependency's tests and install off, never SYSTEM includes, one bump per commit

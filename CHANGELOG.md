@@ -5,6 +5,12 @@ C++ headers, the CMake project and the Python package share one version (`script
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-23
+
+### Changed
+
+- `third_party/core` pinned to snicholls-core `v0.21.0`, the family's one core version (no API change here).
+
 ## [0.1.1] - 2026-11-17
 
 ### Changed

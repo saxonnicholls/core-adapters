@@ -48,7 +48,7 @@
 /// \brief The minor version.
 #define SNICHOLLS_CORE_ADAPTERS_VERSION_MINOR 1
 /// \brief The patch version.
-#define SNICHOLLS_CORE_ADAPTERS_VERSION_PATCH 1
+#define SNICHOLLS_CORE_ADAPTERS_VERSION_PATCH 2
 
 /// \brief The version as one comparable integer: major * 10000 + minor * 100 + patch.
 #define SNICHOLLS_CORE_ADAPTERS_VERSION                                                                        \

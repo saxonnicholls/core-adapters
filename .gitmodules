@@ -10,3 +10,7 @@
 	path = third_party/nlohmann_json
 	url = https://github.com/nlohmann/json.git
 	shallow = true
+[submodule "third_party/tooling"]
+	path = third_party/tooling
+	url = https://github.com/saxonnicholls/tooling.git
+	shallow = true

@@ -31,6 +31,7 @@ var NAVTREEINDEX0 =
 "classsnicholls_1_1python_1_1traced__exception.html":[5,0,9],
 "classsnicholls_1_1python_1_1traced__exception.html#a4839f28d893f00e6a9c55e7760926ec6":[5,0,9,0],
 "classsnicholls_1_1python_1_1traced__exception.html#ab2ce4f8e60d62bc9c3e8f7b09543d2e4":[5,0,9,1],
+"core__adapters_8hpp.html":[5,2,0],
 "decimal__json_8hpp.html":[5,1,0],
 "dir_7415af7eb0df8b5b5402ad900ea97d2d.html":[7,0,0,0],
 "dir_9755f2d8ada0ba258e50f07b18ab75e9.html":[7,0,0,0,0],
@@ -93,5 +94,5 @@ var NAVTREEINDEX0 =
 "time__json_8hpp.html":[5,1,3],
 "topics.html":[5],
 "uuid__json_8hpp.html":[5,1,4],
-"version_8hpp.html":[5,2,0]
+"version_8hpp.html":[5,2,1]
 };

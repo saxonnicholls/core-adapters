@@ -3,6 +3,14 @@
 All notable changes to core-adapters. The format follows Keep a Changelog; versions follow semantic versioning, and the
 C++ headers, the CMake project and the Python package share one version (`scripts/check_version.py`).
 
+## [0.1.5] - 2026-11-27
+
+### Changed
+
+- `third_party/core` pinned to snicholls-core `v0.28.0` and `third_party/tooling` to `v0.3.2`, the family's current
+  versions (no API change here; the adapters build and pass unchanged).
+- README: the dependency table names the current pins.
+
 ## [0.1.4] - 2026-11-26
 
 ### Added

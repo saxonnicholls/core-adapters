@@ -15,7 +15,7 @@
 Each function's docstring names its C++ counterpart; the C++ documentation names the Python one.
 """
 
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 
 from . import errors  # noqa: E402  (first: the C++ modules look its classes up)
 from . import stats  # noqa: E402

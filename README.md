@@ -105,9 +105,9 @@ Other commands: `make test`, `make docs`, `make demos` (`scripts/run_demos.sh`, 
 
 | Dependency | Path | Pinned to |
 |---|---|---|
-| snicholls-core | `third_party/core` | `v0.9.0` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
+| snicholls-core | `third_party/core` | `v0.28.0` (its GoogleTest v1.18.0 and Google Benchmark v1.9.5 serve the tests and benchmarks here) |
 | nanobind | `third_party/nanobind` | `v3.1.0` |
 | nlohmann/json | `third_party/nlohmann_json` | `v3.12.0` |
-| snicholls-tooling | `third_party/tooling` | `v0.2.1` (build-time only: the single include) |
+| snicholls-tooling | `third_party/tooling` | `v0.3.2` (build-time only: the single include) |
 
 Clone with `git clone --recurse-submodules`, or run `git submodule update --init --recursive` after cloning.
